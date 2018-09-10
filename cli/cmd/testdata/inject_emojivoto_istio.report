@@ -1,6 +1,6 @@
 
-hostNetwork: pods do not use host networking...............................[warn] -- deployment/web uses "hostNetwork: true"
-sidecar: pods do not have a proxy or initContainer already injected........[ok]
+hostNetwork: pods do not use host networking...............................[ok]
+sidecar: pods do not have a proxy or initContainer already injected........[warn] -- deployment/web uses known sidecar
 supported: at least one resource injected..................................[warn] -- no supported objects found
 udp: pods do not use UDP protocol..........................................[ok]
 
