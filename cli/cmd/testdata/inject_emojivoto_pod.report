@@ -4,5 +4,5 @@ supported: at least one resource injected..................................[ok]
 udp: pods do not use UDP protocol..........................................[ok]
 
 Summary: 1 of 1 YAML document(s) injected
-  deployment/nginx
+  pod/vote-bot
 
