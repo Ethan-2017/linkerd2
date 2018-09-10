@@ -179,18 +179,7 @@ func injectObjectMeta(t *metaV1.ObjectMeta, k8sLabels map[string]string, options
  * injected, return false.
  */
 func injectPodSpec(t *v1.PodSpec, identity k8s.TLSIdentity, controlPlaneDNSNameOverride string, options *injectOptions, report *injectReport) bool {
-	// check for ports with `protocol: udp`, which will not be routed by Linkerd
-	for _, container := range t.Containers {
-		for _, port := range container.Ports {
-			if port.Protocol == v1.ProtocolUDP {
-				report.udp = true
-				break
-			}
-		}
-		if report.udp {
-			break
-		}
-	}
+	report.udp = checkUDPPorts(t)
 
 	// Pods with `hostNetwork: true` share a network namespace with the host. The
 	// init-container would destroy the iptables configuration on the host, so
@@ -722,4 +711,16 @@ func getFiller(text string) string {
 	}
 
 	return filler
+}
+
+func checkUDPPorts(t *v1.PodSpec) bool {
+	// check for ports with `protocol: UDP`, which will not be routed by Linkerd
+	for _, container := range t.Containers {
+		for _, port := range container.Ports {
+			if port.Protocol == v1.ProtocolUDP {
+				return true
+			}
+		}
+	}
+	return false
 }
