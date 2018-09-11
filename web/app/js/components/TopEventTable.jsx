@@ -13,7 +13,7 @@ const topColumns = ResourceLink => [
     render: directionColumn
   },
   {
-    title: "Source/Destination",
+    title: "Name",
     key: "src-dst",
     render: d => srcDstColumn(d, ResourceLink)
   },
